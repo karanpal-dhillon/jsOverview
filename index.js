@@ -158,7 +158,9 @@ const reviews =
   book.reviews.goodreads.ratingsCount +
   (book.reviews.librarything?.ratingsCount ?? 0);
 console.log(reviews);
+
 const books = getBooks();
+
 const titles = books.map((book) => book.title);
 console.log(titles);
 
@@ -166,4 +168,41 @@ const adventureBooks = books
   .filter((book) => book.genres.includes("adventure"))
   .map((book) => book.title);
 
-console.log(adventureBooks);
+const alchemistTheBook = {
+  id: 6,
+  title: "The Alchemist",
+  publicationDate: "1996-08-01",
+  author: "Paulo Coelho",
+  genres: ["fantasy", "high-fantasy", "novel", "fantasy fiction"],
+  hasMovieAdaptation: true,
+  pages: 165,
+  translations: {
+    korean: "왕좌의 게임",
+    polish: "Gra o tron",
+    portuguese: "A Guerra dos Tronos",
+    spanish: "Juego de tronos",
+  },
+  reviews: {
+    goodreads: {
+      rating: 4.44,
+      ratingsCount: 2295233,
+      reviewsCount: 59058,
+    },
+    librarything: {
+      rating: 4.36,
+      ratingsCount: 38358,
+      reviewsCount: 1095,
+    },
+  },
+};
+const newBooksArray = [...books, alchemistTheBook];
+
+const afterDeletionArray = newBooksArray.filter((book) => book.id !== 6);
+console.log(afterDeletionArray);
+// console.log(adventureBooks);
+
+const booksAfterUpdate = afterDeletionArray.map((book) =>
+  book.id === 3 ? { ...book, pages: 100 } : book
+);
+
+console.log(booksAfterUpdate.find((book) => book.id === 3).pages);
